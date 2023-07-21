@@ -8,7 +8,6 @@ import { months, priorities, status, statusSelections } from './formData'
 
 
 export default function TodoDetailsOverlay({ todo, exitFunction }) {
-    console.log(todo)
     const dispatch = useDispatch()
     const [clientDetails, setClientDetails] = useState(false)
     const token = useSelector(store => store.user.token)
@@ -100,7 +99,7 @@ export default function TodoDetailsOverlay({ todo, exitFunction }) {
                 <p>Status ändern:</p>
                 <select className="w-full" value={selectedStatus} onChange={e => setSelectedStatus(e.target.value)}>
                     <option value={-1} disabled hidden>Stand</option>
-                    {statusSelections.map((status, index) => <option value={index} >{status.name}</option>)}
+                    {statusSelections.map((status, index) => <option key={status.name} value={index} >{status.name}</option>)}
                 </select>
                 <button onClick={e => exitFunction(false)} className="btn mx-auto w-60 bg-low text-white bg-urgent hover:bg-highlight_urgent">Abbrechen</button>
                 <button onClick={updateTodoHandler} className="btn mx-auto w-60 bg-low text-white hover:bg-highlight_low">Speichern</button>

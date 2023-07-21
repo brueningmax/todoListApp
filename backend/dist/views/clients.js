@@ -26,7 +26,7 @@ const getClients = () => __awaiter(void 0, void 0, void 0, function* () {
         ]
     });
     const formattedData = clients.map(client => client.dataValues);
-    return formattedData;
+    return { status: 200, json: formattedData };
 });
 exports.getClients = getClients;
 const getClientByID = (id) => __awaiter(void 0, void 0, void 0, function* () {
@@ -37,7 +37,7 @@ const getClientByID = (id) => __awaiter(void 0, void 0, void 0, function* () {
         attributes: ['id', 'name', 'address', 'contact']
     });
     const formattedData = users.map(user => user.dataValues);
-    return formattedData;
+    return { status: 200, json: formattedData };
 });
 exports.getClientByID = getClientByID;
 const createClient = (clientData) => __awaiter(void 0, void 0, void 0, function* () {

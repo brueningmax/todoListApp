@@ -2,7 +2,7 @@
 export const Spinner = ({background = 'softGray', foreground = 'darkBlue'}) => {
 
     const getColors = () => {
-        return `${'text-' + background} ${'fill-' + foreground}`
+        return 'text-softGray fill-darkBlue'
     }
 
     return (

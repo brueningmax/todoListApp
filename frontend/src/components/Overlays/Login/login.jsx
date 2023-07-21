@@ -3,45 +3,42 @@ import Overlay from "../BaseOverlay/baseOverlay"
 import { useDispatch, useSelector } from "react-redux"
 import { setUser } from "../../../Redux/Slices/userSlice"
 import api from "../../../axios"
+import { Spinner } from "../../Spinner"
+import { login } from "./utils"
+import { setTodos, toggleOverlay } from "../../../Redux/Slices/todosSlice"
+import { setClients } from "../../../Redux/Slices/clientSlice"
 
 
-export default function Login() {
+export default function Login({ }) {
     const dispatch = useDispatch()
-
     const token = useSelector(store => store.user.token)
-
     const [visibility, setVisibility] = useState(true)
     const [username, setUsername] = useState('Admin')
     const [password, setPasswort] = useState('admin')
-    const [wrongInput, setWrongInput] = useState(false)
+    const [error, setError] = useState('')
+    const [showSpinner, setShowSpinner] = useState(false)
 
-    useEffect(() => {
-        if (token) {
-            setVisibility(false)
-        } else if (!token) {
-            setVisibility(true)
-        }
-    }, [token])
+    const getBoard = async () => {
+        let response = await api.get('board/')
+        await dispatch(setTodos(response.data))
+        response = await api.get('clients/')
+        dispatch(setClients(response.data))
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const data = JSON.stringify({
-            username: username,
-            password: password
-        })
-        try {
-            const response = await api.post('auth/', data)
-            if (response.status === 200) {
-                dispatch(setUser(response.data))
-            }
-        } catch (err) {
-            if (err.response.status === 401) {
-                setWrongInput(true)
-            } else {
-                console.log(err)
-            }
+        setShowSpinner(true)
+        const response = await login(username, password)
+        if (response.status === 200) {
+            await getBoard()
+            await dispatch(setUser(response.user))
+            await dispatch(toggleOverlay(false))
+        } else if (response.status === 401) {
+            setError('Benutzername oder Passwort waren falsch. Bitte versuche es noch einmal ')
+        } else {
+            setError('Etwas ist schief gelaufen. Bitte versuche es noch einmal.')
         }
-
+        setShowSpinner(false)
     }
 
     const exitFunction = () => {
@@ -57,7 +54,7 @@ export default function Login() {
 
     return (
         <Overlay customStyling="bg-darkBlue bg-opacity-100" visibilityCondition={visibility} exitFunction={exitFunction}>
-            <form className="overlay">
+            <form className="overlay ">
                 <div className="flex justify-between w-full">
                     <label >Benutzername</label>
                     <input value={username} onChange={(e) => setUsername(e.target.value)} type="text" className="input w-40" autoComplete="username" />
@@ -66,9 +63,17 @@ export default function Login() {
                     <label>Passwort</label>
                     <input value={password} onChange={(e) => setPasswort(e.target.value)} type="password" className="input w-40" autoComplete="current-password" />
                 </div>
-                {wrongInput && <span className='text-red-600'>Die Eingaben waren falsch, bitte versuche es erneut</span>}
-                <button onClick={(e) => handleSubmit(e)} className="btn w-full bg-low text-white hover:bg-highlight_low">Login</button>
-                <button onClick={(e) => { e.preventDefault(); handleClose() }} className="btn w-full bg-urgent text-white hover:bg-highlight_urgent">Schliessen</button>
+                {error && <span className='text-red-600'>{error}</span>}
+                {!showSpinner &&
+                    <div className="h-26 w-full flex flex-col gap-4 items-start bg-white px-16 py-5">
+                        <button onClick={(e) => handleSubmit(e)} className="btn w-full bg-low text-white hover:bg-highlight_low">Login</button>
+                        <button onClick={(e) => { e.preventDefault(); handleClose() }} className="btn w-full bg-urgent text-white hover:bg-highlight_urgent">Schliessen</button>
+                    </div>}
+                {showSpinner &&
+                    <div className="h-26 w-full flex justify-center py-5">
+                        <Spinner background="softGray" foreground="darkBlue" />
+                    </div>
+                }
             </form>
         </Overlay>
     )

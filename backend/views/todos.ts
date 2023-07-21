@@ -110,7 +110,6 @@ export const createTodo = async (newTodo: TodoType) => {
     createdTodo.nextTodo = nextTodo
     createdTodo.status = 'open'
     createdTodo.user = 1
-    console.log(createTodo)
     const save = await createdTodo.save()
     const data = await getBoard()
     data.status = 201

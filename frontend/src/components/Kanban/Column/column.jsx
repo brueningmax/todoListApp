@@ -25,11 +25,11 @@ export default function Column({ content, droppableId }) {
     return (
         <Droppable droppableId={`${droppableId}`}>
             {(provided, snapshot) => (
-                <div className='flex flex-col gap-2.5 flex-grow-1 bg-white rounded-2xl w-52 py-2.5'>
+                <div className='flex flex-col gap-2.5 flex-grow-1 bg-white rounded-2xl w-52 min-w-fit py-2.5 '>
                     {assignColumnHead(content)}
                     <ul className="flex flex-col overflow-y-scroll h-full scrollbar pb-2.5 pl-1.5 " {...provided.droppableProps} ref={provided.innerRef}>
                         {content.todos.map((todo, index) => {
-                            if (!isAdmin || filtered) {
+                            if (!isAdmin || filtered || todo.status === 'completed') {
                                 return <Todo todo={todo} key={todo.id}className='border-2 bg-red-500 p-2' />
                             } else {
                                 return(

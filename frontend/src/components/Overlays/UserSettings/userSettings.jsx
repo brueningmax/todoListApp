@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import api from '../../../axios'
 import { useDispatch } from "react-redux";
-import { updateUser, deleteUser } from '../../../Redux/Slices/todosSlice'
+import { updateUser, setTodos } from '../../../Redux/Slices/todosSlice'
 
 export default function UserSettingsOverlay({ exitFunction }) {
     const dispatch = useDispatch()
@@ -89,10 +89,10 @@ export default function UserSettingsOverlay({ exitFunction }) {
                 },
             };
             let response = await api.delete(`users/${userToUpdate.id}`, config)
-            if (response.status !== 204) {
+            if (response.status !== 200) {
                 alert('something went wrong')
             } else {
-                dispatch(deleteUser(userToUpdate.id))
+                dispatch(setTodos(response.data))
                 exitFunction(false)
             }
         } catch (err) {

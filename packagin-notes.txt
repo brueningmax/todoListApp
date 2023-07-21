@@ -1,0 +1,4 @@
+command:
+
+in folder 
+electron-packager . todo-list --platform=win32 // --icon for icon 

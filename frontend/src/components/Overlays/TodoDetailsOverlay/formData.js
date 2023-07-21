@@ -7,8 +7,23 @@ export const priorities = {
 export const status = {
     open: { name: 'Unbearbeitet', color: 'bg-urgent' },
     inProgress: { name: 'In Bearbeitung', color: 'bg-medium' },
-    completed: { name: 'Abgeschlossen', color: 'bg-low' }
-}
+    completed: { name: 'Abgeschlossen', color: 'bg-low' },
+    'Annual Declaration': { name: 'Jahresdeklaration', color: 'bg-medium' },
+    'For Control': { name: 'zur Kontrolle', color: 'bg-medium' },
+    VAT: { name: 'MWST', color: 'bg-medium' },
+    January: { name: 'Januar', color: 'bg-medium' },
+    February: { name: 'Februar', color: 'bg-medium' },
+    March: { name: 'März', color: 'bg-medium' },
+    April: { name: 'April', color: 'bg-medium' },
+    May: { name: 'Mai', color: 'bg-medium' },
+    June: { name: 'Juni', color: 'bg-medium' },
+    July: { name: 'Juli', color: 'bg-medium' },
+    August: { name: 'August', color: 'bg-medium' },
+    September: { name: 'September', color: 'bg-medium' },
+    October: { name: 'Oktober', color: 'bg-medium' },
+    November: { name: 'November', color: 'bg-medium' },
+    December: { name: 'Dezember', color: 'bg-medium' }
+  }
 
 export const statusSelections = [
     { name: 'Unbearbeitet', color: 'bg-urgent', status: 'open' },

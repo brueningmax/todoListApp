@@ -2,7 +2,7 @@ import { useState } from "react";
 import api from "../../../axios";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { addClient } from "../../../Redux/Slices/clientSlice";
+import { setClients } from "../../../Redux/Slices/clientSlice";
 
 
 export default function NewCustomerSettingsOverlay({ exitFunction,editToggle }) {
@@ -35,13 +35,12 @@ export default function NewCustomerSettingsOverlay({ exitFunction,editToggle }) 
 
         const response = await api.post('clients/new/', data, config)
         console.log(response)
-        if (response.status !== 201) {
+        if (response.status !== 200) {
             alert('something went wrong')
         } else {
-            dispatch(addClient(data))
+            dispatch(setClients(response.data))
             exitFunction(false)
         }
-        // exitFunction(false)
     }
 
     const handleSubmit = (e) => {

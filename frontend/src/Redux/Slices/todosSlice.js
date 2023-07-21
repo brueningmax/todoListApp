@@ -6,9 +6,13 @@ export const todosSlice = createSlice({
     initialState: {
         list: [],
         filteredList: [],
-        filtered: false
+        filtered: false,
+        overlayOpen: true
     },
     reducers: {
+        toggleOverlay: (state, action) => {
+            state.overlayOpen = action.payload
+        },
         setTodos: (state, action) => {
             state.list = action.payload;
             state.filteredList = action.payload
@@ -64,5 +68,5 @@ export const todosSlice = createSlice({
         }
     },
 })
-export const { setTodos, addUser, updateUser, deleteUser, filterTodos } = todosSlice.actions;
+export const { setTodos, addUser, updateUser, deleteUser, filterTodos, toggleOverlay } = todosSlice.actions;
 export default todosSlice.reducer;

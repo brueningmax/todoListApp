@@ -115,7 +115,6 @@ const createTodo = (newTodo) => __awaiter(void 0, void 0, void 0, function* () {
         createdTodo.nextTodo = nextTodo;
         createdTodo.status = 'open';
         createdTodo.user = 1;
-        console.log(exports.createTodo);
         const save = yield createdTodo.save();
         const data = yield (0, main_1.getBoard)();
         data.status = 201;

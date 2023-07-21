@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import View from '../../../assets/icons/view.svg'
 import api from '../../../axios'
-import { updateUser } from "../../../Redux/Slices/userSlice";
+import { setTodos } from "../../../Redux/Slices/todosSlice";
 
 
 export default function OwnUserOverlay({ exitFunction }) {
@@ -27,10 +27,11 @@ export default function OwnUserOverlay({ exitFunction }) {
                 },
               };
             const response = await api.patch(`users/${userDetails.user.id}`, data, config)
+            console.log(response)
             if (response.status !== 200) {
                 alert('something went wrong')
             } else {
-                dispatch(updateUser(response.data))
+                dispatch(setTodos(response.data))
                 exitFunction(false)
             }
         } catch (err) {

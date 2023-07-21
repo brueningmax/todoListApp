@@ -1,7 +1,7 @@
 const { app, BrowserWindow, Menu, ipcMain } = require('electron');
 const path = require('path');
 
-const isDev = require('electron-is-dev');
+// const isDev = require('electron-is-dev');
 
 
 let mainWindow;
@@ -34,7 +34,8 @@ function createWindow() {
 
     // Load your React app's index.html file
     mainWindow.loadURL(
-        isDev ? 'http://localhost:5173' : `file://${path.join(__dirname, '../dist/index.html')}`
+        // isDev ? 'http://localhost:5173' : `file://${path.join(__dirname, '../dist/index.html')}`
+        `file://${path.join(__dirname, '../dist/index.html')}`
     );
 
     mainWindow.on('closed', () => {

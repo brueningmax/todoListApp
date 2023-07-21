@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import api from "../../../axios";
 import { useDispatch } from "react-redux";
-import {addUser} from '../../../Redux/Slices/todosSlice'
+import {setTodos} from '../../../Redux/Slices/todosSlice'
 
 
 export default function NewUserOverlay({ exitFunction }) {
@@ -28,8 +28,8 @@ export default function NewUserOverlay({ exitFunction }) {
                 },
             };
             let response = await api.post('users/new/', data, config)
-            if (response.status === 201 ) {
-                dispatch(addUser(data))
+            if (response.status === 200 ) {
+                dispatch(setTodos(response.data))
             } else {
                 alert('something went wrong')
             }

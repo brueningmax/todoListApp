@@ -18,12 +18,12 @@ const router = express_1.default.Router();
 //get all clients
 router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let data = yield (0, clients_1.getClients)();
-    res.send(data);
+    res.status(data.status).json(data.json);
 }));
 // get client by ID
 router.get('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let data = yield (0, clients_1.getClientByID)(req.params.id);
-    res.send(data);
+    res.status(data.status).json(data.json);
 }));
 // create clients
 router.post('/new', (req, res) => __awaiter(void 0, void 0, void 0, function* () {

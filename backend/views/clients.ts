@@ -17,7 +17,7 @@ export const getClients = async () => {
         ]
     })
     const formattedData = clients.map(client => client.dataValues)
-    return formattedData;
+    return {status: 200, json: formattedData};
 }
 
 export const getClientByID = async (id: string) => {
@@ -28,7 +28,7 @@ export const getClientByID = async (id: string) => {
         attributes: ['id', 'name', 'address', 'contact']
     })
     const formattedData = users.map(user => user.dataValues)
-    return formattedData;
+    return {status: 200, json: formattedData};
 }
 
 

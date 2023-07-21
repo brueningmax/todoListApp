@@ -10,7 +10,7 @@
         @apply border-2 border-darkGray rounded-md px-1;
     }
     .overlay {
-        @apply flex flex-col rounded-md gap-4 items-start bg-white px-16 py-10 w-96;
+        @apply flex flex-col rounded-md gap-4 items-start bg-white px-16 py-10 w-5/12;
     }
 }
 @layer utilities {

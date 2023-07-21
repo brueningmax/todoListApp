@@ -9,7 +9,7 @@ import OwnUserOverlay from '../Overlays/OwnUserSettings/ownUserSettings'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../../Redux/Slices/userSlice'
-
+import {toggleOverlay} from '../../Redux/Slices/todosSlice'
 
 export default function Sidebar() {
 
@@ -21,13 +21,13 @@ export default function Sidebar() {
     return (
         <div className="bg-sky-900 w-14 flex flex-col items-center pt-24 gap-5">
             {isAdmin && <>
-            <button className="flex justify-center items-center btn bg-lightBlue" onClick={() => setUserSettingsVisibility(true)}>
+            <button className="flex justify-center items-center btn bg-lightBlue" onClick={() => {setUserSettingsVisibility(true); dispatch(toggleOverlay(true))}}>
                 <img src={Team} className='invert' />
             </button>
             <Overlay visibilityCondition={userSettingsVisibility} exitFunction={setUserSettingsVisibility} >
                 <UserSettingsOverlay exitFunction={setUserSettingsVisibility} />
             </Overlay>
-            <button className="flex justify-center items-center btn bg-lightBlue" onClick={() => setCustomerSettingsVisibility(true)}>
+            <button className="flex justify-center items-center btn bg-lightBlue" onClick={() => {setCustomerSettingsVisibility(true); dispatch(toggleOverlay(true))}}>
                 <img src={Client} className='w-8 invert' />
             </button>
             <Overlay visibilityCondition={customerSettingsVisibility} exitFunction={setCustomerSettingsVisibility} >
@@ -35,7 +35,7 @@ export default function Sidebar() {
             </Overlay>
             </>
             }
-            <button className="flex justify-center items-center btn bg-lightBlue " onClick={() => setOwnUserSettingsVisibility(true)}>
+            <button className="flex justify-center items-center btn bg-lightBlue " onClick={() => {setOwnUserSettingsVisibility(true); dispatch(toggleOverlay(true))}}>
                 <img src={Gears} className='w-8 invert' />
             </button>
             <Overlay visibilityCondition={ownUserSettingsVisibility} exitFunction={setOwnUserSettingsVisibility} >

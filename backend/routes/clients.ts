@@ -6,21 +6,21 @@ const router = express.Router()
 //get all clients
 router.get('/', async (req:Request, res:Response) => {
     let data = await getClients()
-    res.send(data)
+    res.status(data.status).json(data.json)
 })
 
 // get client by ID
 router.get('/:id', async (req:Request, res:Response) => {
     let data = await getClientByID(req.params.id)
-    res.send(data)
+    res.status(data.status).json(data.json)
 })
 
 // create clients
 router.post('/new', async (req:Request, res:Response) => {
     let data = await createClient(req.body)
     if (data.status === 201) {
-        data = await getClients()
-    }
+            data = await getClients()
+        }
     res.status(data.status).json(data.json)
 })
 // update clients

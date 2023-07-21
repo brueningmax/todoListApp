@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const users_1 = require("../views/users");
+const main_1 = require("../views/main");
 const router = express_1.default.Router();
 //get all users
 router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -28,16 +29,25 @@ router.get('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 // create user
 router.post('/new', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let data = yield (0, users_1.createUser)(req.body);
+    if (data.status === 201) {
+        data = yield (0, main_1.getBoard)();
+    }
     res.status(data.status).json(data.json);
 }));
 // update user
 router.patch('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let data = yield (0, users_1.updateUser)(req.params.id, req.body);
+    if (data.status === 200) {
+        data = yield (0, main_1.getBoard)();
+    }
     res.status(data.status).json(data.json);
 }));
 // delete user
 router.delete('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let data = yield (0, users_1.deleteUser)(req.params.id);
-    res.sendStatus(data.status);
+    if (data.status === 204) {
+        data = yield (0, main_1.getBoard)();
+    }
+    res.status(data.status).json(data.json);
 }));
 exports.default = router;
