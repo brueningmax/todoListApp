@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import api from "../../../axios";
 import { months, types, priorities } from "./formData";
-import { setTodos } from "../../../Redux/Slices/todosSlice";
+import { setTodos, toggleOverlay } from "../../../Redux/Slices/todosSlice";
 
 export default function NewTodoOverlay({ exitFunction }) {
 
@@ -54,6 +54,7 @@ export default function NewTodoOverlay({ exitFunction }) {
 
                 if (response.status === 201) {
                     dispatch(setTodos(response.data))
+                    await dispatch(toggleOverlay(false))
                     exitFunction(false)
                 } else {
                     alert('something went wrong')
@@ -69,7 +70,6 @@ export default function NewTodoOverlay({ exitFunction }) {
             }
         }
     }
-
 
     const handleSubmit = (e) => {
         e.preventDefault()

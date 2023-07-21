@@ -14,7 +14,6 @@ export default function TodoDetailsOverlay({ todo, exitFunction }) {
     const [selectedStatus, setSelectedStatus] = useState(-1)
 
     const completeTodoHandler = async () => {
-        // e.preventDefault()
         try {
             let config = {
                 headers: {
@@ -27,6 +26,7 @@ export default function TodoDetailsOverlay({ todo, exitFunction }) {
                 alert('something went wrong')
             } else {
                 dispatch(setTodos(response.data))
+                await dispatch(toggleOverlay(false))
                 exitFunction(false)
             }
         } catch (err) {
@@ -52,15 +52,16 @@ export default function TodoDetailsOverlay({ todo, exitFunction }) {
                     alert('something went wrong')
                 } else {
                     dispatch(setTodos(response.data))
+                    await dispatch(toggleOverlay(false))
                     exitFunction(false)
                 }
             } catch (err) {
                 console.log(err)
             }
-        } else if (statusSelections[selectedStatus].status === 'completed'){
+        } else if (statusSelections[selectedStatus].status === 'completed') {
             completeTodoHandler()
         }
-        }
+    }
 
 
     return (

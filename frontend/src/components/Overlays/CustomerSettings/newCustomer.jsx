@@ -3,6 +3,7 @@ import api from "../../../axios";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { setClients } from "../../../Redux/Slices/clientSlice";
+import { toggleOverlay } from "../../../Redux/Slices/todosSlice";
 
 
 export default function NewCustomerSettingsOverlay({ exitFunction,editToggle }) {
@@ -39,6 +40,7 @@ export default function NewCustomerSettingsOverlay({ exitFunction,editToggle }) 
             alert('something went wrong')
         } else {
             dispatch(setClients(response.data))
+            await dispatch(toggleOverlay(false))
             exitFunction(false)
         }
     }

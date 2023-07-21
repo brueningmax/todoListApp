@@ -47,11 +47,6 @@ export default function Login({ }) {
         }
     }
 
-    // const handleClose = () => {
-    //     console.log(BrowserWindow)
-    //     ipcRenderer.send('close-window');
-    //   };
-
     return (
         <Overlay customStyling="bg-darkBlue bg-opacity-100" visibilityCondition={visibility} exitFunction={exitFunction}>
             <form className="overlay ">

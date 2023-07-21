@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import api from "../../../axios";
-import {updateClient, deleteClient} from '../../../Redux/Slices/clientSlice'
+import { updateClient, deleteClient } from '../../../Redux/Slices/clientSlice'
+import { toggleOverlay } from "../../../Redux/Slices/todosSlice";
 
 export default function ExistingCustomerSettingsOverlay({ exitFunction, editToggle }) {
     const dispatch = useDispatch()
@@ -47,7 +48,8 @@ export default function ExistingCustomerSettingsOverlay({ exitFunction, editTogg
             if (response.status !== 200) {
                 alert('something went wrong')
             } else {
-                dispatch(updateClient({...data, id: clientID}))
+                dispatch(updateClient({ ...data, id: clientID }))
+                await dispatch(toggleOverlay(false))
                 exitFunction(false)
             }
         } catch (err) {
@@ -69,6 +71,7 @@ export default function ExistingCustomerSettingsOverlay({ exitFunction, editTogg
                 alert('something went wrong')
             } else {
                 dispatch(deleteClient(clientToUpdate))
+                await dispatch(toggleOverlay(false))
                 exitFunction(false)
             }
         } catch (err) {

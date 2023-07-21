@@ -25,7 +25,8 @@ export default function Column({ content, droppableId }) {
     return (
         <Droppable droppableId={`${droppableId}`}>
             {(provided, snapshot) => (
-                <div className='flex flex-col gap-2.5 flex-grow-1 bg-white rounded-2xl w-52 min-w-fit py-2.5 '>
+                <div className='px-1 h-full'>
+                <div className='flex flex-col gap-2.5 flex-grow-1 bg-white rounded-2xl w-52 min-w-fit h-full grow py-2.5 '>
                     {assignColumnHead(content)}
                     <ul className="flex flex-col overflow-y-scroll h-full scrollbar pb-2.5 pl-1.5 " {...provided.droppableProps} ref={provided.innerRef}>
                         {content.todos.map((todo, index) => {
@@ -42,6 +43,7 @@ export default function Column({ content, droppableId }) {
                         )}
                         {provided.placeholder}
                     </ul>
+                </div>
                 </div>
             )}
         </Droppable>

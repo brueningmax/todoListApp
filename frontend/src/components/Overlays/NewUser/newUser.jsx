@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import api from "../../../axios";
 import { useDispatch } from "react-redux";
-import {setTodos} from '../../../Redux/Slices/todosSlice'
+import { setTodos, toggleOverlay } from '../../../Redux/Slices/todosSlice'
 
 
 export default function NewUserOverlay({ exitFunction }) {
@@ -42,9 +42,10 @@ export default function NewUserOverlay({ exitFunction }) {
         }
     }
 
-        const handleSubmit = (e) => {
+        const handleSubmit = async (e) => {
             e.preventDefault()
-            createUser()
+            await createUser()
+            await dispatch(toggleOverlay(false))
             exitFunction(false)
         }
         return (

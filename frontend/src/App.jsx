@@ -5,7 +5,7 @@ import SearchBar from './components/Searchbar/searchbar'
 import Sidebar from './components/Sidebar/sidebar'
 import Login from './components/Overlays/Login/login'
 import { useSelector } from 'react-redux'
-import { UseBoardUpdate } from './components/Kanban/UseBoardUpdate-Hook'
+import { UseBoardUpdate } from './components/UseUpdate'
 
 
 function App() {

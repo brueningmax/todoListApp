@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { DragDropContext } from '@hello-pangea/dnd';
 import Column from './Column/column';
-import { fakeData } from '../../assets/fakeData';
 import { v4 as uuidv4 } from 'uuid';
 import SVG from '../../assets/icons/add-button.svg'
 import Overlay from '../Overlays/BaseOverlay/baseOverlay';
@@ -9,8 +8,7 @@ import NewUserOverlay from '../Overlays/NewUser/newUser';
 import { useDispatch, useSelector } from 'react-redux';
 import {createData, findPossibleIndex} from './movetodo'
 import api from '../../axios';
-import { setTodos } from '../../Redux/Slices/todosSlice'
-import { UseBoardUpdate } from './UseBoardUpdate-Hook';
+import { setTodos, toggleOverlay } from '../../Redux/Slices/todosSlice'
 
 
 export default function Kanban() {
@@ -52,6 +50,7 @@ export default function Kanban() {
         const { source, destination, draggableId } = result;
         // dropped outside the list
         if (!destination || destination.droppableId == state.length - 1) {
+            await dispatch(toggleOverlay(true))
             return;
         }
         const sInd = source.droppableId;
@@ -81,6 +80,7 @@ export default function Kanban() {
             };
             const response = await api.patch('todos/moveTodo/', data, config)
             await dispatch(setTodos(response.data)) 
+            await (dispatch(toggleOverlay(false)))
         }
     }
     
@@ -89,8 +89,8 @@ export default function Kanban() {
             <Overlay visibilityCondition={newUserVisibility} exitFunction={setnewUserVisibility} >
                 <NewUserOverlay exitFunction={setnewUserVisibility} />
             </Overlay>
-            <DragDropContext onDragEnd={handleOnDragEnd} >
-                <div className='flex w-full h-full overflow-y-hidden gap-1.5'>
+            <DragDropContext onDragEnd={handleOnDragEnd} onDragStart={() => { dispatch(toggleOverlay(true)) }}>
+                <div className='flex w-full h-full overflow-y-hidden'>
                     {state.map((object, index) =>
                         <Column key={uuidv4()} droppableId={index} content={object} />)}
                     {isAdmin &&
