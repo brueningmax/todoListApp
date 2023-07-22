@@ -6,19 +6,19 @@ import CompletedColumnHead from './ColumnHeads/completedColumnHead'
 import Todo from '../../Todo/todo';
 import { useSelector } from 'react-redux';
 
-export default function Column({ content, droppableId }) {
+export default function Column({ content, droppableId, userColor }) {
 
     const isAdmin = useSelector(store => store.user.user.isAdmin)
     const filtered = useSelector(store => store.todos.filtered)
 
-    const assignColumnHead = (content) => {
+    const assignColumnHead = (content, color) => {
         switch (content.user.name) {
             case "not assigned":
                 return <NotAssignedColumnHead user={content.user} />
             case "completed":
                 return <CompletedColumnHead user={content.user} />
             default:
-                return <DefaultColumnHead user={content.user} />
+                return <DefaultColumnHead user={content.user} userColor={userColor} />
         }
     }
 

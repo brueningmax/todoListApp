@@ -4,13 +4,13 @@
 
 @layer components {
     .btn {
-        @apply w-10 h-10 rounded-lg hover:bg-darkBlue hover:translate-y-[-3px] transition duration-200 ; 
+        @apply w-10 min-w-[40px] h-10 rounded-lg hover:bg-darkBlue hover:translate-y-[-3px] transition duration-200 ; 
     }
     .input {
         @apply border-2 border-darkGray rounded-md px-1;
     }
     .overlay {
-        @apply flex flex-col rounded-md gap-4 items-start bg-white px-16 py-10 w-5/12;
+        @apply min-w-fit max-w-[30%] flex flex-col rounded-md gap-4 bg-white px-16 py-10 w-5/12;
     }
 }
 @layer utilities {

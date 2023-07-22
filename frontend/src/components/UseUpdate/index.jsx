@@ -16,7 +16,7 @@ export const UseBoardUpdate = () => {
         const interval = setInterval(() => {
             getUpdates()
         }
-            , 0.05 * 60 * 1000);
+            , 10 * 1000);
         setIntervalId(interval)
 
         return () => { clearInterval(intervalId) }

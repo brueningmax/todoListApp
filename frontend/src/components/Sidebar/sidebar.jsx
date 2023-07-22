@@ -19,7 +19,7 @@ export default function Sidebar() {
     const [customerSettingsVisibility, setCustomerSettingsVisibility] = useState(false)
     const [ownUserSettingsVisibility, setOwnUserSettingsVisibility] = useState(false)
     return (
-        <div className="bg-sky-900 w-14 flex flex-col items-center pt-24 gap-5">
+        <div className="bg-sky-900 w-14 flex flex-col items-center px-1 pt-24 gap-5">
             {isAdmin && <>
             <button className="flex justify-center items-center btn bg-lightBlue" onClick={() => {setUserSettingsVisibility(true); dispatch(toggleOverlay(true))}}>
                 <img src={Team} className='invert' />

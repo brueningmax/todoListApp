@@ -1,8 +1,16 @@
 import { useDispatch } from 'react-redux';
 import { toggleOverlay } from '../../../Redux/Slices/todosSlice'
+import { useEffect } from 'react';
 
 const Overlay = ({ visibilityCondition, exitFunction, customStyling = 'bg-opacity-30', children }) => {
     const dispatch = useDispatch()
+
+    useEffect(() => {
+        if (visibilityCondition === true) {
+            dispatch(toggleOverlay(true))
+        }
+    }, [visibilityCondition])
+
     const handleClose = async (e) => {
         if (e.target.id == 'background') {
             dispatch(toggleOverlay(false))

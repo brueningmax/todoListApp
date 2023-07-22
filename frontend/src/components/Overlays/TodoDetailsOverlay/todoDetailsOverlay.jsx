@@ -66,7 +66,7 @@ export default function TodoDetailsOverlay({ todo, exitFunction }) {
 
     return (
         <div className="overlay p-0">
-            <div className={`flex ${priorities[todo.priority].color}  w-full px-16 rounded-t-md`}>
+            <div className={`flex ${priorities[todo.priority].color} w-full px-16 rounded-t-md`}>
                 <span className="text-white text-xl">
                     {priorities[todo.priority].name}
                 </span>
@@ -75,33 +75,43 @@ export default function TodoDetailsOverlay({ todo, exitFunction }) {
                     <span className="text-white">{status[todo.status].name}</span>
                 </div>
             </div>
-            <div className="overlay py-1.5">
+            <div className="overlay max-w-full py-1.5 w-full">
                 <p className="text-xl">{todo.type}</p>
-                <div className="flex w-full justify-between ">
+                <div className="pl-0.5 flex w-full justify-between ">
                     <p >Kunde: {todo.client.name} </p>
                     <button className="w-8 px-1 rounded-md border border-darkGray" onClick={() => setClientDetails(!clientDetails)}>
                         <img src={View} className='' />
                     </button>
                 </div>
-                {clientDetails && <>
+                <div
+                    className={`flex flex-col gap-2 max-h-[50%] transition-all overflow-auto ${clientDetails ? 'h-40' : 'h-0'}`}
+                >
                     <div className="w-full flex-col items-start">
-                        <p className="text-left">Adresse:</p>
+                        <p className="text-left underline decoration-slate-400">Adresse:</p>
                         <p className="text-left">{todo.client.address}</p>
                     </div>
                     <div className="w-full flex-col items-start">
-                        <p className="text-left">Ansprechpartner: {todo.client.contact}</p>
+                        <p className="text-left underline decoration-slate-400">Ansprechpartner:</p>
                         <p className="text-left">{todo.client.contact}</p>
                     </div>
-                </>
-
-                }
-                <p>Zeitraum: {months[todo.month]} {todo.year}</p>
-                <p>{todo.notes}</p>
-                <p>Status ändern:</p>
-                <select className="w-full" value={selectedStatus} onChange={e => setSelectedStatus(e.target.value)}>
-                    <option value={-1} disabled hidden>Stand</option>
-                    {statusSelections.map((status, index) => <option key={status.name} value={index} >{status.name}</option>)}
-                </select>
+                </div>
+                <div className="pl-0.5 items-start flex flex-col gap-2">
+                    <div className=" w-full flex justify-between border-b-2 py-2">
+                        <span className="underline decoration-slate-400">Zeitraum:</span>
+                        <span> {months[todo.month]} {todo.year}</span>
+                    </div>
+                    <div className="pl-0.5 w-full flex flex-col gap-2 items-start border-b-2 py-2">
+                        {todo.notes && <span className="underline decoration-slate-400">Notizen:</span>}
+                        <span>{todo.notes}</span>
+                    </div>
+                    <div className="w-full flex flex-col gap-2 items-start border-b-2 py-2">
+                        <span className="pl-0.5 underline decoration-slate-400">Status ändern:</span>
+                        <select className=" w-full" value={selectedStatus} onChange={e => setSelectedStatus(e.target.value)}>
+                            <option value={-1} disabled hidden>Stand</option>
+                            {statusSelections.map((status, index) => <option key={status.name} value={index} >{status.name}</option>)}
+                        </select>
+                    </div>
+                </div>
                 <button onClick={e => exitFunction(false)} className="btn mx-auto w-60 bg-low text-white bg-urgent hover:bg-highlight_urgent">Abbrechen</button>
                 <button onClick={updateTodoHandler} className="btn mx-auto w-60 bg-low text-white hover:bg-highlight_low">Speichern</button>
             </div>
