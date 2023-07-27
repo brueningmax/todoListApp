@@ -58,21 +58,21 @@ export default function Login({ }) {
         <Overlay customStyling="bg-darkBlue bg-opacity-100" visibilityCondition={visibility} exitFunction={exitFunction}>
             <form className="overlay ">
                 <div className="flex justify-between w-full">
-                    <label >Benutzername</label>
+                    <label className="mr-2" >Benutzername</label>
                     <input value={username} onChange={(e) => setUsername(e.target.value)} type="text" className="input w-40" autoComplete="username" />
                 </div>
                 <div className="flex justify-between w-full">
-                    <label>Passwort</label>
+                    <label className="mr-2">Passwort</label>
                     <input value={password} onChange={(e) => setPasswort(e.target.value)} type="password" className="input w-40" autoComplete="current-password" />
                 </div>
                 {error && <span className='text-red-600'>{error}</span>}
                 {!showSpinner &&
-                    <div className="h-26 w-full flex flex-col gap-4 items-start bg-white px-16 py-5">
+                    <div className="h-28 w-full flex flex-col gap-4 items-start bg-white mt-5">
                         <button onClick={(e) => handleSubmit(e)} className="btn w-full bg-low text-white hover:bg-highlight_low">Login</button>
                         <button onClick={(e) => { e.preventDefault(); handleClose() }} className="btn w-full bg-urgent text-white hover:bg-highlight_urgent">Schliessen</button>
                     </div>}
                 {showSpinner &&
-                    <div className="h-26 w-full flex justify-center py-5">
+                    <div className="h-28 w-full flex justify-center items-center mt-5">
                         <Spinner background="softGray" foreground="darkBlue" />
                     </div>
                 }

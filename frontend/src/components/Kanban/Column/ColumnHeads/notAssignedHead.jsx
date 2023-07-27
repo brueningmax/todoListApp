@@ -15,7 +15,7 @@ export default function NotAssignedColumnHead({ user }) {
                 Nicht zugeordnet
             </p>
             {isAdmin &&
-            <button className="flex justify-center items-center btn bg-lightBlue " onClick={() => setNewTodoVisibility(true)}>
+            <button className="flex justify-center items-center btn w-10 bg-lightBlue " onClick={() => setNewTodoVisibility(true)}>
                 <img src={SVG} className='w-6 invert'/>
             </button>
             }

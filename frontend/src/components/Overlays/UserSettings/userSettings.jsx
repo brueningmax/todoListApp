@@ -42,6 +42,7 @@ export default function UserSettingsOverlay({ exitFunction }) {
                 alert('something went wrong')
             } else {
                 dispatch(updateUser(data))
+                await dispatch(toggleOverlay(false))
                 exitFunction(false)
             }
         } catch (err) {
@@ -68,6 +69,7 @@ export default function UserSettingsOverlay({ exitFunction }) {
                 alert('something went wrong')
             } else {
                 alert(`Password was reset to "${userToUpdate.name}"`)
+                await dispatch(toggleOverlay(false))
                 exitFunction(false)
             }
         } catch (err) {
@@ -93,6 +95,7 @@ export default function UserSettingsOverlay({ exitFunction }) {
                 alert('something went wrong')
             } else {
                 dispatch(setTodos(response.data))
+                await dispatch(toggleOverlay(false))
                 exitFunction(false)
             }
         } catch (err) {

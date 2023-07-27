@@ -32,6 +32,7 @@ export default function OwnUserOverlay({ exitFunction }) {
                 alert('something went wrong')
             } else {
                 dispatch(setTodos(response.data))
+                await dispatch(toggleOverlay(false))
                 exitFunction(false)
             }
         } catch (err) {
