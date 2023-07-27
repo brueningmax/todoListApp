@@ -1,8 +1,7 @@
 const { app, BrowserWindow, Menu, ipcMain } = require('electron');
 const path = require('path');
 
-// const isDev = require('electron-is-dev');
-
+const isDev = require('electron-is-dev');
 
 let mainWindow;
 
@@ -28,33 +27,35 @@ function createWindow() {
         width: 800,
         height: 600,
         webPreferences: {
-            nodeIntegration: true // enable Node.js integration in the renderer process
+            // nodeIntegration: true // enable Node.js integration in the renderer process
+            nodeIntegration: false, // Ensure nodeIntegration is set to false
+            contextIsolation: true, // Enable context isolation
+            preload: path.join(__dirname, 'preload.js'), // Preload 
         }
     });
 
     // Load your React app's index.html file
     mainWindow.loadURL(
-        // isDev ? 'http://localhost:5173' : `file://${path.join(__dirname, '../dist/index.html')}`
-        `file://${path.join(__dirname, '../dist/index.html')}`
+        isDev ? 'http://localhost:5173' : `file://${path.join(__dirname, '../dist/index.html')}`
+        // `file://${path.join(__dirname, '../dist/index.html')}`
+        // 'http://localhost:5173'
     );
 
     mainWindow.on('closed', () => {
         mainWindow = null;
     });
 
-
-
     Menu.setApplicationMenu(null);
     mainWindow.webContents.openDevTools();
 }
 
 app.on('ready', () => {
-
     checkBackend()
     setInterval(checkBackend, 3 * 60 * 1000)
 
     // Handle close-window IPC message
-    ipcMain.handle('close-window', () => {
+    ipcMain.handle('close-app', () => {
+        // console.log('close')
         app.quit();
     })
     createWindow()

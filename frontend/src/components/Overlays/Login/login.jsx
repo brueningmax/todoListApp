@@ -7,7 +7,7 @@ import { Spinner } from "../../Spinner"
 import { login } from "./utils"
 import { setTodos, toggleOverlay } from "../../../Redux/Slices/todosSlice"
 import { setClients } from "../../../Redux/Slices/clientSlice"
-
+// const electron = window.require('electron');
 
 export default function Login({ }) {
     const dispatch = useDispatch()
@@ -47,10 +47,12 @@ export default function Login({ }) {
         }
     }
 
-    // const handleClose = () => {
-    //     console.log(BrowserWindow)
-    //     ipcRenderer.send('close-window');
-    //   };
+    const handleClose = () => {
+        window.electron.closeApp();
+        // window.electron.closeApp()
+
+        // ipcRenderer.send('close-window');
+      };
 
     return (
         <Overlay customStyling="bg-darkBlue bg-opacity-100" visibilityCondition={visibility} exitFunction={exitFunction}>
