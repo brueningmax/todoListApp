@@ -47,11 +47,9 @@ export default function Login({ }) {
         }
     }
 
-    const handleClose = () => {
+    const handleClose = (e) => {
+        e.preventDefault();
         window.electron.closeApp();
-        // window.electron.closeApp()
-
-        // ipcRenderer.send('close-window');
       };
 
     return (
@@ -69,7 +67,7 @@ export default function Login({ }) {
                 {!showSpinner &&
                     <div className="h-28 w-full flex flex-col gap-4 items-start bg-white mt-5">
                         <button onClick={(e) => handleSubmit(e)} className="btn w-full bg-low text-white hover:bg-highlight_low">Login</button>
-                        <button onClick={(e) => { e.preventDefault(); handleClose() }} className="btn w-full bg-urgent text-white hover:bg-highlight_urgent">Schliessen</button>
+                        <button onClick={(e) => handleClose(e)} className="btn w-full bg-urgent text-white hover:bg-highlight_urgent">Schliessen</button>
                     </div>}
                 {showSpinner &&
                     <div className="h-28 w-full flex justify-center items-center mt-5">
